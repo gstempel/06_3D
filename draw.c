@@ -86,7 +86,7 @@ struct matrix * generate_sphere(double cx, double cy, double cz,
 				double r, double step ) {
   double s, t, p, x1, y1, z1;
   s = 1.0/step;
-  printf("Number of steps: %f\n", s);
+  //printf("Number of steps: %f\n", s);
 
   struct matrix *points = new_matrix(3, s*s);
 
@@ -123,7 +123,7 @@ struct matrix * generate_sphere(double cx, double cy, double cz,
 void add_torus( struct matrix * edges, 
 		double cx, double cy, double cz,
 		double r1, double r2, double step ) {
-  return;
+  struct matrix *points = generate_torus(cx, cy, cz, r1, r2, step);
 }
 
 /*======== void generate_torus() ==========
