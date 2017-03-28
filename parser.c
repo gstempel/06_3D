@@ -98,7 +98,16 @@ void parse_file ( char * filename,
     double step = 0.01;
     double width, height, depth;
 
-    if ( strncmp(line, "box", strlen(line)) == 0 ) {
+    if (strncmp(line, "sphere", strlen(line)) == 0) {
+      fgets(line, sizeof(line), f);
+      printf("SPHERE\t%s", line);
+
+      sscanf(line, "%lf %lf %lf %lf",
+	     xvals, yvals, zvals, &r);
+      add_sphere(edges, xvals[0], yvals[0], zvals[0], r, 0.01);
+    }
+
+    else if ( strncmp(line, "box", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
       printf("BOX\t%s", line);
 
