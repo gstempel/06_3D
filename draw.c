@@ -154,7 +154,7 @@ struct matrix * generate_torus( double cx, double cy, double cz,
 
   for(p = 0; p < s; p++) { //rotation
     for(t = 0; t < s; t++) { //circle
-      x1 = r1*cos(2*M_PI * (t/s)) + r2 + cx;
+      x1 = r1*cos(2*M_PI * (t/s)) + cx;
       y1 = r1*sin(2*M_PI * (t/s)) + r2*cos(2*M_PI*(p/s)) + cy;
       z1 = r1*sin(2*M_PI * (t/s)) + r2*sin(2*M_PI*(p/s)) + cz;
       points->m[0][(int)(p*s + t)] = x1;
