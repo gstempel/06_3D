@@ -124,6 +124,12 @@ void add_torus( struct matrix * edges,
 		double cx, double cy, double cz,
 		double r1, double r2, double step ) {
   struct matrix *points = generate_torus(cx, cy, cz, r1, r2, step);
+  int i;
+  for(i = 0; i < (1.0/step) * (1.0/step); i ++) {
+    add_edge(edges,
+	     points->m[0][i], points->m[1][i], points->m[2][i],
+	     points->m[0][i] + 2, points->m[1][i] + 2, points->m[2][i] + 2);
+  }
 }
 
 /*======== void generate_torus() ==========
@@ -140,7 +146,24 @@ void add_torus( struct matrix * edges,
   ====================*/
 struct matrix * generate_torus( double cx, double cy, double cz,
 				double r1, double r2, double step ) {
-  return NULL;
+  double s, t, p, x1, y1, z1;
+  s = 1.0/step;
+  //printf("Number of steps: %f\n", s);
+
+  struct matrix *points = new_matrix(3, s*s);
+
+  for(p = 0; p < s; p++) { //rotation
+    for(t = 0; t < s; t++) { //circle
+      x1 = r1*cos(2*M_PI * (t/s)) + r2 + cx;
+      y1 = r1*sin(2*M_PI * (t/s)) + r2*cos(2*M_PI*(p/s)) + cy;
+      z1 = r1*sin(2*M_PI * (t/s)) + r2*sin(2*M_PI*(p/s)) + cz;
+      points->m[0][(int)(p*s + t)] = x1;
+      points->m[1][(int)(p*s + t)] = y1;
+      points->m[2][(int)(p*s + t)] = z1;
+    }
+  }
+  print_matrix(points);
+  return points;
 }
 
 /*======== void add_circle() ==========
